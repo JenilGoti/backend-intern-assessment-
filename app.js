@@ -50,13 +50,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
             console.log("server started");
         });
 
-        const io = require('./socket').init(server);
-        io.on('connection', socket => {
-            console.log('Client connected');
-            socket.on('disconnect', () => {
-                console.log("disconnected:");
-            });
-        });
+        
     })
     .catch(err => {
         console.log(err);
