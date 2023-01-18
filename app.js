@@ -7,7 +7,7 @@ const MONGODB_URI = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MON
 const app = express();
 var server = require('http').createServer(app);
 
-const productRouter=require("./routes/product");
+const productRouter = require("./routes/product");
 
 app.use(bodyParser.urlencoded({
     extended: false
@@ -44,7 +44,9 @@ app.use((error, req, res, next) => {
 const port = process.env.PORT || 8080;
 
 mongoose.set('strictQuery', true);
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
+mongoose.connect(MONGODB_URI, {
+        useNewUrlParser: true
+    })
     .then(result => {
         server.listen(port, () => {
             console.log("server started");

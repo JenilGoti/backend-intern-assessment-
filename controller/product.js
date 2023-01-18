@@ -3,6 +3,8 @@ const {
 } = require("mongodb");
 const Product = require("../model/product");
 
+// get all products and get by featured and min max price
+
 exports.getProducts = (req, res, next) => {
     var query = {}
     const featured = req.query.featured == "true";
@@ -43,6 +45,9 @@ exports.getProducts = (req, res, next) => {
             throw err;
         })
 }
+
+
+// post request to add product
 
 exports.postProduct = (req, res, next) => {
     console.log(req.body);
@@ -85,6 +90,8 @@ exports.postProduct = (req, res, next) => {
     }
 }
 
+// update product by product id
+
 exports.updateProduct = (req, res, next) => {
     const productId = req.params.productId;
     console.log(req.body);
@@ -125,6 +132,8 @@ exports.updateProduct = (req, res, next) => {
             next(err);
         })
 }
+
+// find and delet product by id
 
 
 exports.deletProduct = (req, res, next) => {
