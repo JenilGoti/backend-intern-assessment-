@@ -3,6 +3,9 @@ const {
 } = require("mongodb");
 const Product = require("../model/product");
 
+
+const io = require("../socket");
+
 // get all products and get by featured and min max price
 
 exports.getProducts = (req, res, next) => {
@@ -82,6 +85,7 @@ exports.postProduct = (req, res, next) => {
         product.save()
             .then(result => {
                 console.log(result);
+                io.getIO().emit("newproduct",result);
                 res.status(200).send({
                     statusCode: 200,
                     message: "Product saved sucessfuly",
@@ -129,6 +133,7 @@ exports.updateProduct = (req, res, next) => {
         })
         .then(result => {
             console.log(result);
+            io.getIO().emit("updateproduct",result);
             res.status(200).send({
                 statusCode: 200,
                 message: "Product updated sucessfuly",
@@ -149,6 +154,7 @@ exports.deletProduct = (req, res, next) => {
         .then(result => {
             console.log(result);
             if (result) {
+                io.getIO().emit("deletproduct",result);
                 res.status(200).send({
                     statusCode: 200,
                     message: "Product deleted sucessfuly",

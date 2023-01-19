@@ -34,7 +34,7 @@ app.use((error, req, res, next) => {
     const message = error.message;
     const data = error.data;
     res.status(status).json({
-        statusCode:status,
+        statusCode: status,
         message: message,
         data: data,
     })
@@ -52,8 +52,18 @@ mongoose.connect(MONGODB_URI, {
         server.listen(port, () => {
             console.log("server started");
         });
+        const io = require('./socket').init(server)
+        io.on('connection', socket => {
+            console.log('Client connected');
+            socket.on('join', function (data) {
+                socket.join(data.id);
+            });
 
-        
+            socket.on('disconnect', () => {
+                console.log("disconnected:");
+            });
+        });
+
     })
     .catch(err => {
         console.log(err);
