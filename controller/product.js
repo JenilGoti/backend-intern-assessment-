@@ -34,6 +34,7 @@ exports.getProducts = (req, res, next) => {
         .then(result => {
             if (result.length > 0) {
                 res.status(200).json({
+                    statusCode:200,
                     message: "data found sucessfuly",
                     count: result.length,
                     data: result
@@ -82,7 +83,7 @@ exports.postProduct = (req, res, next) => {
             .then(result => {
                 console.log(result);
                 res.status(200).send({
-                    status: 200,
+                    statusCode: 200,
                     message: "Product saved sucessfuly",
                     product: result
                 })
@@ -129,7 +130,7 @@ exports.updateProduct = (req, res, next) => {
         .then(result => {
             console.log(result);
             res.status(200).send({
-                status: 200,
+                statusCode: 200,
                 message: "Product updated sucessfuly",
                 product: result
             })
@@ -149,7 +150,7 @@ exports.deletProduct = (req, res, next) => {
             console.log(result);
             if (result) {
                 res.status(200).send({
-                    status: 200,
+                    statusCode: 200,
                     message: "Product deleted sucessfuly",
                     data: result
                 })
