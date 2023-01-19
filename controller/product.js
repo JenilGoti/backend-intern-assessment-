@@ -10,6 +10,7 @@ exports.getProducts = (req, res, next) => {
     const featured = req.query.featured == "true";
     const minPrice = parseInt(req.query.minPrice);
     const maxPrice = parseInt(req.query.maxPrice);
+    const minRating = parseFloat(req.query.minRating);
     if (featured) {
         query.featured = true;
     }
@@ -22,6 +23,11 @@ exports.getProducts = (req, res, next) => {
         query.price = {
             ...query.price,
             "$lt": maxPrice
+        }
+    }
+    if (minRating) {
+        query.rating = {
+            "$gt": minRating
         }
     }
     Product.find(query)
